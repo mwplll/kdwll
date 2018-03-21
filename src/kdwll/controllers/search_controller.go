@@ -22,7 +22,7 @@ func (c *SearchController) Get() {
 		KeyWord: key,
 	}
 	values, err := s.FindHitValues()
-	if err != nil {
+	if err != nil  {
 		resp.Code = utils.STATUS_DATABASE_ERROR
 		resp.Message = fmt.Sprint("get table values from db error ---> ", err)
 	} else {

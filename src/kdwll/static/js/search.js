@@ -325,6 +325,9 @@ function doSearch0(key) {
     var func = function (data) {
         document.title = oldTitle;
         if (data.code != 100) {
+            $(".list-item-loading").remove();
+            var noDataObj = $("<div class='layui-col-xs12 no-data-message'></div>").html("查询异常，请检查输入的数据类型后重试！");
+            $(".info-row-container").html("").append(noDataObj);
             return;
         }
         data = data.data;
