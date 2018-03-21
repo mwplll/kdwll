@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/search.css">
+</head>
+
+<body style="position: static;">
+    <header class="layui-bg-green">
+        <div class="layui-logo">
+            <a href="/">快到碗里来</a>
+        </div>
+        <ul class="layui-nav layui-layout-right layui-bg-green">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    民警
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退出</a></li>
+        </ul>
+    </header>
+
+    <div class="main-container layui-container">
+        <div class="layui-row">
+            <div class="title-col layui-col-xs12 layui-col-md9">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-xs12">
+                        <div class="title-row layui-row">
+                            <div class="layui-col-xs3 layui-col-sm2 layui-col-md2 layui-col-lg2">
+                                数据表
+                            </div>
+                            <div class="layui-col-xs3 layui-col-sm2 layui-col-md2 layui-col-lg2">
+                                数据来源
+                            </div>
+                            <div class="layui-col-xs6 layui-col-sm8 layui-col-md8 layui-col-lg8">
+                                简介
+                            </div>
+                            <div class="tool-btn-zone">
+                                <button class="tool-btn btn-collapse-all"><i class="layui-icon">ဆ</i></button>
+                                <button class="tool-btn btn-to-next-highlight"><i class="layui-icon"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-row layui-col-space15">
+                    <div class="info-row-container layui-col-xs12"><div class="row-split-line"></div>
+                        <div class="info-row layui-row">
+                            <div class="sec-code layui-col-xs3 layui-col-sm2 layui-col-md2 layui-col-lg2">70001_bank</div>
+                            <div class="sec-name layui-col-xs3 layui-col-sm2 layui-col-md2 layui-col-lg2">银行</div>
+                            <div class="layui-col-xs6 layui-col-sm8 layui-col-md8 layui-col-lg8">
+                                银行放贷信息
+                                <i class="expand-icon layui-icon" announcement-id="1204496939"></i>
+                            </div>
+                        </div>
+                        <div class="detail-row layui-row">
+                            <div class="detail-info layui-col-lg12">录入时间：2018-03-21 07:44:56	 命中记录数: 1</div>
+                        </div>
+                        <div class="layui-row">
+                            <div class="short-content-row layui-col-lg12"><span class="span-no-content">(无正文，可能为扫描件)</span></div>
+                        </div>
+                        <div class="row-split-line"></div>
+                    </div>
+                </div>
+                <div id="test1"></div>
+                <div class="layui-row layui-col-space15">
+                    <div class="search-result-container layui-col-xs12">用时 0.07 秒，共搜索到 1697130 条记录，共 169713 页，当前第 1 页，当前页共 10 条记录。</div>
+                </div>
+            </div>
+            <div class="time-range-col layui-col-xs12 layui-col-md3">
+                <div class="time-range-container">
+                    <div class="time-range-title">索引库信息</div>
+                    <div class="time-range-value"><p>已存储数据表：10<br>数据项记录条数：572364</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<script src="/static/layui/layui.js"></script>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/footer.js"></script>
+<script>
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+    layui.use('form', function(){
+        var form = layui.form;
+    });
+    layui.use('laypage', function(){
+        var laypage = layui.laypage;
+
+        laypage.render({
+            elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+            ,count: 50 //数据总数，从服务端得到
+        });
+    });
+</script>
+
+</body>
+
+</html>
