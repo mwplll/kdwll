@@ -1,13 +1,11 @@
-/* Copyright 2017 Baidu Inc. All Rights Reserved. */
-/* main.go - the main structure of pushmanager.  */
+/* Copyright 2018. All Rights Reserved. */
+/* main.go - the main structure of kdwll.  */
 /*
 modification history
 --------------------
-2017/06/05, by Mao Weipeng<maoweipeng@baidu.com>, create
 */
 /*
 DESCRIPTION
-Pushmanager is a automation system for publishing applications onto JPaaS.
 */
 package main
 
@@ -119,6 +117,7 @@ func setRoute() {
 	beego.ErrorHandler("404", pageNotFound)
 	// api
 	beego.Router(`/api/v1/search/:key`, &controllers.SearchController{}, "get:Get")
+	beego.Router(`/api/v1/statistics`, &controllers.StatisticsController{}, "get:Get")
 	beego.Router(`/api/v1/debug/:key`, &controllers.SearchController{}, "get:Debug")
 	// view
 	beego.Router(`/`, &controllers.ViewController{}, "get:Index")

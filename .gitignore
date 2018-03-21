@@ -1,2 +1,7 @@
 .idea
 .DS_Store
+pkg
+log
+bin
+src/github.com
+src/kdwll/kdwll

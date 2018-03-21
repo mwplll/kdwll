@@ -26,9 +26,14 @@ func (c *SearchController) Get() {
 		resp.Code = utils.STATUS_DATABASE_ERROR
 		resp.Message = fmt.Sprint("get table values from db error ---> ", err)
 	} else {
+		result := map[string]interface{}{
+			"total_count": len(values),
+			"elapsed_millsec": 567,
+			"result": values,
+		}
 		resp.Code = utils.STATUS_OK
 		resp.Message = utils.MSG_OK
-		resp.Data = values
+		resp.Data = result
 	}
 	c.Data["json"] = resp
 	c.ServeJSON()
