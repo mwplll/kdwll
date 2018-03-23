@@ -10,7 +10,7 @@ import (
 type IndexTable struct {
 	IndexId		int64            `orm:"pk;column(index_id)"json:"index_id"`
 	Key 		string           `orm:"column(key)"json:"key"`
-	Table 		string           `orm:"column(table)"json:"table"`
+	Table 	    string           `orm:"column(table)"json:"table"`
 	Remark 		string           `orm:"column(remark)"json:"remark"`
 	Source 		string           `orm:"column(source)"json:"source"`
 	CreateTime 	time.Time        `orm:"column(create_time)"json:"create_time"`
@@ -54,7 +54,8 @@ func GetRelatedTables(keyWordType string) ([]*IndexTable, error) {
  * GetTableValues - get values from table
  *
  * PARAMS:
- *   - name: query key
+ *   - keyWord: query key
+ *   - keyWordType: query key type
  *   - table: table name
  *
  * RETURNS:
@@ -69,11 +70,40 @@ func GetTableValues(table, keyWord, keyWordType string) ([]orm.Params, error) {
 	return maps, err
 }
 
-func GetTableComments(table string) ([]orm.Params, error) {
+/*
+ * GetTableComments - get table's field comments
+ *
+ * PARAMS:
+ *   - table: table name
+ *
+ * RETURNS:
+ *   - []orm.Params: result in []map
+ *   - error: if read fail
+ */
+func GetTableComments(table string) (*map[string]string, error) {
 	o := orm.NewOrm()
 
 	var maps []orm.Params
-	_, err := o.Raw("show full fields from ?", table).Values(&maps)
-	return maps, err
+	_, err := o.Raw("SELECT field, comments FROM field_table WHERE table_name = ?", table).Values(&maps)
+
+	fieldCommentsPair := map[string]string{}
+	if len(maps) != 0 {
+		for _, v := range maps{
+			field := v["field"].(string)
+			comments := v["comments"].(string)
+			fieldCommentsPair[field] = comments
+		}
+	}
+	return &fieldCommentsPair, err
+}
+
+func GetStatisticsInfo() (*map[string]string, error) {
+	o := orm.NewOrm()
+
+	tableCnt, _ := o.QueryTable("index_table").Limit(-1).Distinct().Count()
+	return &map[string]int64{
+		"table_count": tableCnt,
+		"data_item_count": 32127,
+	}
 }
 

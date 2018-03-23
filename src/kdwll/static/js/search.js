@@ -326,7 +326,7 @@ function doSearch0(key) {
         document.title = oldTitle;
         if (data.code != 100) {
             $(".list-item-loading").remove();
-            var noDataObj = $("<div class='layui-col-xs12 no-data-message'></div>").html("查询异常，请检查输入的数据类型后重试！");
+            var noDataObj = $("<div class='layui-col-xs12 no-data-message'></div>").html("对不起，没有查询到您需要的数据！");
             $(".info-row-container").html("").append(noDataObj);
             return;
         }
@@ -337,43 +337,65 @@ function doSearch0(key) {
             $(".info-row-container").html("").append(noDataObj);
             return;
         }
+        var total_item_count = 0;
+        var total_table_count = 0;
         $.each(data.result, function (i, e) {
-            var item = $(listItemhtml);
-            item.appendTo(".info-row-container");
-            item.find(".table-name").html(e.table.table);
-            item.find(".table-source").html(e.table.source);
-            var title = item.find(".table-remark").html(e.table.remark);
-            var shortContent = item.find(".short-content-row");
-            shortContent.html("简短内容");
-            var fullContentText = "<br>详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容"
-                + "详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容<br>"
-                + "详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容<br>"
-                + "详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容<br>";
-            var fullContent = item.find(".full-content-row");
-            fullContent.html(fullContentText);
-            var fullContentHeight = fullContent.outerHeight();
-            fullContent.css("height", "0px").parent().hide();
-            item.find(".detail-info").html(
-                "录入时间："
-                + e.table.create_time
-                + "\t命中记录数：2");
-            loadedElements[e.table.index_id] = {
-                shortContent: shortContent,
-                fullContent: fullContent,
-                // fullContentHeight: fullContentHeight,
-                fullContentHeight: 100,
-                fullContentLength: 100,
-            };
-            item.find(".expand-icon").attr("table-index-id", e.table.index_id).click(listItem_onClick);
-        });
+                var item = $(listItemhtml);
+                item.appendTo(".info-row-container");
+                item.find(".table-name").html(e.table.table);
+                item.find(".table-source").html(e.table.source);
+                item.find(".table-remark").html(e.table.remark);
+
+                var shortContentText = "";
+                var fullContentText = "";
+                var fieldMap = e.fields;
+                for (var i = 0; i < e.hit_values.length; i++) {
+                    recordIndex = i + 1;
+                    fullContentText = fullContentText +
+                        "<div class='page-split-line'></div><span class='page-sign'>[记录" + recordIndex + "]</span>" +
+                        "<table class='layui-table lay-size='sm'><colgroup><col width='100'><col width='200'><col></colgroup>" +
+                        "<thead><tr><th>#</th><th>字段</th><th>值</th></tr></thead><tbody>";
+                    recordMap = e.hit_values[i]
+                    var j = 0;
+                    for (var key in recordMap) {
+                        j++;
+                        fullContentText = fullContentText + "<tr><td>" + j +
+                            "</td><td>" + fieldMap[key] + "</td><td>" + recordMap[key] + "</td></tr>";
+                        shortContentText = shortContentText + fieldMap[key] + ":" + recordMap[key] + "， ";
+                    }
+                    fullContentText = fullContentText + "</body></table>";
+                }
+
+                var shortContent = item.find(".short-content-row");
+                shortContent.html(shortContentText);
+                var fullContent = item.find(".full-content-row");
+                fullContent.html(fullContentText);
+                var fullContentHeight = fullContent.outerHeight();
+                var fullContentHeight2 = fullContent.height();
+                var fullContentHeight3 = fullContent.innerHeight();
+                fullContent.css("height", "0px").parent().hide();
+                item.find(".detail-info").html(
+                    "录入时间："
+                    + e.table.create_time
+                    + "\t命中记录数：" + e.hit_values.length);
+                total_item_count = total_item_count + e.hit_values.length;
+                loadedElements[e.table.index_id] = {
+                    shortContent: shortContent,
+                    fullContent: fullContent,
+                    // fullContentHeight: fullContentHeight,
+                    fullContentHeight: 1000,
+                    fullContentLength: 100,
+                };
+                item.find(".expand-icon").attr("table-index-id", e.table.index_id).click(listItem_onClick);
+            }
+        );
         $(".search-result-container").html(
-            "用时 " + (data.elapsed_millsec / 1000).toFixed(2)
-            + " 秒，共搜索到 " + data.total_count + " 条记录");
+            "用时 " + data.elapsed_millsec + "，共搜索到 " + total_item_count + " 条记录");
         $(".loading-box").remove();
         // processPagination(data);
     };
     document.title = "【正在搜索，请稍候……】" + oldTitle;
-    $.get("/api/v1/search/"+key, func);
+    $.get("/api/v1/search/" + key, func);
 }
 
 // function processPagination(data) {

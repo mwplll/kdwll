@@ -8,6 +8,7 @@ import (
 	"kdwll/utils"
 	"kdwll/services"
 	"kdwll/models"
+	"time"
 )
 
 type SearchController struct {
@@ -21,14 +22,17 @@ func (c *SearchController) Get() {
 	s := &services.SearchEngine{
 		KeyWord: key,
 	}
+	start := time.Now()
 	values, err := s.FindHitValues()
-	if err != nil  {
+	duration := time.Now().Sub(start)
+	beego.Info("search time:" + duration.String())
+	if err != nil {
 		resp.Code = utils.STATUS_DATABASE_ERROR
 		resp.Message = fmt.Sprint("get table values from db error ---> ", err)
 	} else {
 		result := map[string]interface{}{
 			"total_count": len(values),
-			"elapsed_millsec": 567,
+			"elapsed_millsec": duration.String(),
 			"result": values,
 		}
 		resp.Code = utils.STATUS_OK

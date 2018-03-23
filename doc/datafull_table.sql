@@ -14,6 +14,17 @@ CREATE TABLE IF NOT EXISTS `index_table` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='index_table' AUTO_INCREMENT=1;
 
 
+-- --------------------------------------------------------
+-- 字段表 从字段到注释的映射表
+CREATE TABLE IF NOT EXISTS `field_table` (
+  `field_id` int(16) NOT NULL AUTO_INCREMENT COMMENT '字段表全局id',
+  `table_name` char(64) DEFAULT '' NOT NULL COMMENT '表名',
+  `field` varchar(128) DEFAULT '' COMMENT '字段名称',
+  `comments` varchar(256) DEFAULT '' COMMENT '字段注释',
+  PRIMARY KEY (`field_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='field_table' AUTO_INCREMENT=1;
+
+
 -- 表的结构 `bank table`
 -- name 和 phone_number 非空
 CREATE TABLE IF NOT EXISTS `30446_bank` (
@@ -89,8 +100,6 @@ CREATE TABLE IF NOT EXISTS `70466_email` (
   `password` char(40) DEFAULT '' COMMENT 'password',
   `tie_on_card` char(8) DEFAULT '' COMMENT '有无绑卡，有绑卡c，无绑卡',
   `name` char(32) DEFAULT '' COMMENT '姓名',
-  -- `first_name` char(32) DEFAULT '' COMMENT '名',
-  -- `last_name` char(32) DEFAULT '' COMMENT '姓',
   `address` varchar(128) DEFAULT '' COMMENT '地址',
   `city` char(40) DEFAULT '' COMMENT '城市',
   `cityE` char(40) DEFAULT '' COMMENT '城市英文',

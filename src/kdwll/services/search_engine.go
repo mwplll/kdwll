@@ -18,6 +18,7 @@ type SearchEngine struct {
 
 type TableInfo struct {
 	Table     *models.IndexTable	`json:"table"`
+	Fields    *map[string]string	`json:"fields"`
 	HitValues []orm.Params			`json:"hit_values"`
 }
 
@@ -62,7 +63,7 @@ func (s *SearchEngine)FindHitValues() ([]*TableInfo, error) {
 			}
 			tis = append(tis, tisInType...)
 		case utils.TYPE_PHONE:
-			tisInType, err := s.FindHitValuesInType(utils.TYPE_NAME)
+			tisInType, err := s.FindHitValuesInType(utils.TYPE_PHONE)
 			if err != nil {
 				return tis, err
 			}
@@ -117,8 +118,10 @@ func (s *SearchEngine)FindHitValuesInType(keyWordType string) ([]*TableInfo, err
 		if err != nil || hitValues == nil {
 			continue
 		}
+		fields, _ := models.GetTableComments(t.Table)
 		ti := &TableInfo{
 			Table: t,
+			Fields: fields,
 			HitValues: hitValues,
 		}
 		tis = append(tis, ti)
