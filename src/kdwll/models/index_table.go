@@ -97,13 +97,13 @@ func GetTableComments(table string) (*map[string]string, error) {
 	return &fieldCommentsPair, err
 }
 
-func GetStatisticsInfo() (*map[string]string, error) {
+func GetStatisticsInfo() (*map[string]int64, error) {
 	o := orm.NewOrm()
 
 	tableCnt, _ := o.QueryTable("index_table").Limit(-1).Distinct().Count()
 	return &map[string]int64{
 		"table_count": tableCnt,
 		"data_item_count": 32127,
-	}
+	}, nil
 }
 
