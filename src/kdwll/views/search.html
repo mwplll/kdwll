@@ -30,25 +30,53 @@
         </ul>
     </header>
 
+
+    <div class="title-container">
+        <div class="layui-container">
+            <div class="layui-row">
+                <div class="title-col layui-col-xs12 layui-col-md8">
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-xs12">
+                            <form class="layui-form" action="/search">
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block search-textbox-wrapper">
+                                        <input type="text" name="key" required lay-verify="required"
+                                               placeholder="请输入手机/身份证/邮箱/姓名/QQ/车牌号" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block search-button">
+                                        <button class="layui-btn" lay-submit lay-filter="formSearch">立即提交</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="main-container layui-container">
         <div class="layui-row">
-            <div class="title-col layui-col-xs12 layui-col-md9">
+            <div class="title-col layui-col-xs12 layui-col-md8">
                 <div class="layui-row layui-col-space15">
                     <div class="layui-col-xs12">
                         <div class="title-row layui-row">
+                            <div class="layui-col-xs6 layui-col-sm7 layui-col-md6 layui-col-lg7">
+                                数据说明
+                            </div>
+                            <div class="layui-col-xs3 layui-col-sm2 layui-col-md3 layui-col-lg2">
+                                数据来源
+                            </div>
                             <div class="layui-col-xs3 layui-col-sm3 layui-col-md3 layui-col-lg3">
                                 数据表
                             </div>
-                            <div class="layui-col-xs3 layui-col-sm2 layui-col-md2 layui-col-lg2">
-                                数据来源
-                            </div>
-                            <div class="layui-col-xs6 layui-col-sm7 layui-col-md7 layui-col-lg7">
-                                简介
-                            </div>
-                            <!--<div class="tool-btn-zone">-->
-                                <!--<button class="tool-btn btn-collapse-all"><i class="layui-icon">ဆ</i></button>-->
+                            <div class="tool-btn-zone">
+                                <button class="tool-btn btn-collapse-all"><i class="layui-icon">ဆ</i></button>
                                 <!--<button class="tool-btn btn-to-next-highlight"><i class="layui-icon"></i></button>-->
-                            <!--</div>-->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -57,24 +85,27 @@
                     <div class="info-row-container layui-col-xs12">
                         <div class="row-split-line"></div>
                         <div class="info-row layui-row">
-                            <div class="layui-col-xs3 layui-col-sm2 layui-col-md2 layui-col-lg2">
-                                <a class="table-name" href="#"></a>
-                            </div>
-                            <div class="table-source layui-col-xs3 layui-col-sm2 layui-col-md2 layui-col-lg2"></div>
-                            <div class="layui-col-xs6 layui-col-sm8 layui-col-md8 layui-col-lg8">
+                            <div class="layui-col-xs6 layui-col-sm7 layui-col-md6 layui-col-lg7">
                                 <div class="table-remark"></div>
+                            </div>
+                            <div class="table-source layui-col-xs3 layui-col-sm2 layui-col-md2 layui-col-lg2">
+                            </div>
+                            <div class="layui-col-xs3 layui-col-sm2 layui-col-md2 layui-col-lg2">
+                                <a class="table-name layui-col-xs3 layui-col-sm3 layui-col-md1 layui-col-lg3" href="#"></a>
                                 <i class="expand-icon layui-icon" table-index-id=""></i>
                             </div>
                         </div>
+                        <!--设置下拉的表格格式 -->
                         <div class="detail-row layui-row">
-                            <div class="detail-info layui-col-lg12"></div>
+                            <div class="detail-info layui-col-lg15"></div>
                         </div>
-                        <div class="layui-row">
-                            <div class="short-content-row layui-col-lg12" style="display: block;">
+                        <!--各个字段备注信息，现隐藏 -->
+                        <!--<div class="layui-row">
+                            <div class="short-content-row layui-col-lg15" style="display: block;">
                             </div>
-                        </div>
+                        </div>-->
                         <div class="layui-row" style="display: none;">
-                            <div class="full-content-row layui-col-lg12">
+                            <div class="full-content-row layui-col-lg15">
                             </div>
                         </div>
                     </div>
